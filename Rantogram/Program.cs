@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Rant;
+using Rant.Engine.ObjectModel;
 using TelegramBotSharp;
 using TelegramBotSharp.Types;
 
@@ -21,7 +22,7 @@ namespace Rantogram
             _bot = new TelegramBot(File.ReadAllText("apikey.txt"));
             _engine = new RantEngine();
             _engine.LoadPackage("Rantionary.rantpkg");
-
+            
             Console.WriteLine("Rant Loaded! {0} dictionaries.", _engine.Dictionary.GetTables().Count());
 
             historyDictionary = new Dictionary<string, RantPattern>();
@@ -44,6 +45,8 @@ namespace Rantogram
 
                     MessageTarget target = (m.Chat ?? (MessageTarget)m.From);
 
+                    _engine["username"] = new RantObject(m.From.Username);
+                    
                     if (m.Text.StartsWith("/rant"))
                     {
                         string[] parm = m.Text.Split(new [] {' '}, 2, StringSplitOptions.RemoveEmptyEntries);
@@ -54,7 +57,7 @@ namespace Rantogram
                         {
                             RantPattern pattern = RantPattern.FromString(parm[1]);
 
-                            RantOutput output = _engine.Do(pattern, 1000, 5);
+                            RantOutput output = _engine.Do(pattern, 1000, 1);
 
                             _bot.SendMessage(target, output.Main, true, m);
 

@@ -33,8 +33,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Rant">
-      <HintPath>..\packages\Rant.2.0.244\lib\net45\Rant.dll</HintPath>
+    <Reference Include="Rant, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Rant.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp">
       <HintPath>..\packages\RestSharp.105.1.0\lib\net452\RestSharp.dll</HintPath>
@@ -66,7 +67,6 @@
     </Content>
     <Content Include="LICENSE.txt" />
     <Content Include="Rant License.txt" />
-    <Content Include="Rant.h" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
