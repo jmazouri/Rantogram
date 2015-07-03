@@ -27,6 +27,8 @@ namespace Rantogram
             historyDictionary = new Dictionary<string, RantPattern>();
 
             new Task(HandleMessages).Start();
+
+            Console.WriteLine("Press enter to quit.");
             Console.ReadLine();
         }
 
@@ -52,11 +54,11 @@ namespace Rantogram
                         {
                             RantPattern pattern = RantPattern.FromString(parm[1]);
 
-                            RantOutput output = _engine.Do(pattern);
+                            RantOutput output = _engine.Do(pattern, 1000, 5);
 
                             _bot.SendMessage(target, output.Main, true, m);
 
-                            historyDictionary.Add(m.From.Username, pattern);
+                            historyDictionary[m.From.Username] = pattern;
                         }
                         catch (Exception ex)
                         {
